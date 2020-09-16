@@ -56,9 +56,12 @@ export default {
     //  ...mapGetters({
     //    productIsInStock: 'productIsInStock'
     //  })
-    ...mapGetters([
-      'productIsInStock'
-    ])
+    ...mapGetters('products', {
+       productIsInStock: 'productIsInStock'
+     }),
+    // ...mapGetters([
+    //   'productIsInStock'
+    // ])
 
     // products() {
     //   // return store.state.products
@@ -76,10 +79,14 @@ export default {
     //   fetchProducts: 'fetchProducts',
     //   addProductToCart: 'addProductToCart'
     // }),
-    ...mapActions([
-      'fetchProducts',
-      'addProductToCart'
-    ]),
+    ...mapActions({
+      fetchProducts: 'products/fetchProducts',
+      addProductToCart: 'cart/addProductToCart'
+    }),
+    // ...mapActions([
+    //   'fetchProducts',
+    //   'addProductToCart'
+    // ]),
     // addProductToCart(product) {
     //   this.$store.dispatch('addProductToCart', product)
     // }

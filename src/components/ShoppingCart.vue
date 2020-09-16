@@ -20,14 +20,21 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapGetters({
+    // ...mapGetters({
+    ...mapGetters('cart', {
       products: 'cartProducts',
+      // products: 'cart/cartProducts',
       total: 'cartTotal'
+      // total: 'cart/cartTotal'
     }),
 
-    ...mapState({
-      // checkoutStatus: 'checkoutStatus'
-      checkoutStatus: state => state.cart.checkoutStatus
+    // ...mapGetters('products', {
+    //   productIsInStock: 'productIsInStock'
+    // }),
+
+    ...mapState('cart', {
+      checkoutStatus: 'checkoutStatus'
+      // checkoutStatus: state => state.cart.checkoutStatus
     }),
 
     // products() {
@@ -39,7 +46,8 @@ export default {
   },
 
   methods: {
-    ...mapActions(['checkout'])
+    // ...mapActions(['checkout'])
+    ...mapActions('cart', ['checkout'])
   }
 }
 </script>

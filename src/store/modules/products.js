@@ -1,5 +1,8 @@
 import shop from "@/api/shop"
+
 export default {
+  namespaced: true,
+
   state: {
     // products: [],
     items: []
@@ -20,7 +23,7 @@ export default {
 
   mutations: {
     setProducts(state, products) {
-      // state.products = products;
+      state.products = products;
       state.items = products;
     },
 
@@ -31,6 +34,7 @@ export default {
 
   actions: {
     fetchProducts({commit}) {
+      // console.log('hi from products')
       return new Promise((resolve, reject) => {
         shop.getProducts(products => {
           commit('setProducts', products),
