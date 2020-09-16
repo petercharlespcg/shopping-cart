@@ -6,7 +6,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    // {id, quantity}
+    cart: []
   },
 
   getters: {
@@ -25,18 +27,40 @@ export default new Vuex.Store({
       })
     },
 
-    // addToCart(context, product) {
-    //   if (product.inventory > 0) {
-    //     context.commit('pushProductToCart', product)
-    //   } else {
-
-    //   }
-    // }
+    addProductToCart(context, product) {
+      if (product.inventory > 0) {
+        const cartItem = context.state.cart.find(item => item.id === product.id)
+        if (!cartItem) {
+          context.commit('pushProductToCart', product.id)
+        } else {
+          context.commit('incrementItemQuantity', cartItem)
+        }
+        context.commit('decrementProductInventory', product)
+      }
+    }
   },
 
   mutations: {
     setProducts(state, products) {
       state.products = products;
+    },
+
+    // const cartItem = {id: 123, quantity: 2}
+    pushProductToCart(state, productId /* cartItem */) {
+      state.cart.push({
+        id: productId,
+        quantity: 1
+      })
+      // state.cart.push(cartItem)
+    },
+
+    incrementItemQuantity(state, cartItem) {
+      cartItem.quantity++
+    },
+
+    decrementProductInventory(state, product) {
+      product.inventory--
     }
+
   }
 })

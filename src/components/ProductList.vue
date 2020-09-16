@@ -7,14 +7,16 @@
     <ul v-else>
       <!-- <li v-for="product in products" v-bind:key="product">{{product.title}} - {{product.price}}</li> -->
       <!-- <li v-for="product in products">{{product.title}} - {{product.price}}</li> -->
-      <li v-for="(product, idx) in products" v-bind:key="idx">{{product.title}} - {{product.price}}</li>
+      <li v-for="(product, idx) in products" v-bind:key="idx">{{product.title}} - {{product.price}} - {{product.inventory}}
+      <button @click="addProductToCart(product)">Add to cart</button>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import shop from "@/api/shop"
-import store from '@/store/index'
+// import shop from "@/api/shop"
+// import store from '@/store/index'
 export default {
   data () {
     return {
@@ -25,7 +27,13 @@ export default {
   computed: {
     products() {
       // return store.state.products
-      return store.getters.availableProducts
+      return this.$store.getters.availableProducts
+    }
+  },
+
+  methods: {
+    addProductToCart(product) {
+      this.$store.dispatch('addProductToCart', product)
     }
   },
 
@@ -36,7 +44,7 @@ export default {
     //   store.commit('setProducts', products);
     // })
     this.loading = true;
-    store.dispatch('fetchProducts')
+    this.$store.dispatch('fetchProducts')
       .then(() => this.loading = false);
   }
 }
