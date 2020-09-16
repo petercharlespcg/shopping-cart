@@ -2,47 +2,54 @@ import Vuex, { Store } from 'vuex';
 import Vue from 'vue'
 // import shop from '@/api/shop';
 import actions  from "./action";
+import cart from "./modules/cart";
+import products from "./modules/products";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    cart,
+    products
+  },
+
   state: {
-    products: [],
+    // products: [],
     // {id, quantity}
-    cart: [],
-    checkoutStatus: null
+    // cart: [],
+    // checkoutStatus: null
   },
 
   getters: {
-    availableProducts(state, getters) {
-      return state.products.filter(product => product.inventory > 0)
-    },
+    // availableProducts(state, getters) {
+    //   return state.products.filter(product => product.inventory > 0)
+    // },
 
-    cartProducts(state) {
-      return state.cart.map(cartItem => {
-        const product = state.products.find(product => product.id === cartItem.id)
-        return {
-          title: product.title,
-          price: product.price,
-          quantity: cartItem.quantity
-        }
-      })
-    },
+    // cartProducts(state) {
+    //   return state.cart.map(cartItem => {
+    //     const product = state.products.find(product => product.id === cartItem.id)
+    //     return {
+    //       title: product.title,
+    //       price: product.price,
+    //       quantity: cartItem.quantity
+    //     }
+    //   })
+    // },
 
-    cartTotal(state, getters) {
-      // let total = 0
-      // getters.cartProducts.forEach(product => {
-      //   total += product.price * product.quantity
-      // });
-      // return total;
-      return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
-    },
+    // cartTotal(state, getters) {
+    //   // let total = 0
+    //   // getters.cartProducts.forEach(product => {
+    //   //   total += product.price * product.quantity
+    //   // });
+    //   // return total;
+    //   return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0)
+    // },
 
-    productIsInStock() {
-      return (product) => {
-        return product.inventory > 0
-      }
-    }
+    // productIsInStock() {
+    //   return (product) => {
+    //     return product.inventory > 0
+    //   }
+    // }
   },
 
   // actions: actions /* {
@@ -84,34 +91,34 @@ export default new Vuex.Store({
   actions,
 
   mutations: {
-    setProducts(state, products) {
-      state.products = products;
-    },
+    // setProducts(state, products) {
+    //   state.products = products;
+    // },
 
-    // const cartItem = {id: 123, quantity: 2}
-    pushProductToCart(state, productId /* cartItem */) {
-      state.cart.push({
-        id: productId,
-        quantity: 1
-      })
-      // state.cart.push(cartItem)
-    },
+    // // const cartItem = {id: 123, quantity: 2}
+    // pushProductToCart(state, productId /* cartItem */) {
+    //   state.cart.push({
+    //     id: productId,
+    //     quantity: 1
+    //   })
+    //   // state.cart.push(cartItem)
+    // },
 
-    incrementItemQuantity(state, cartItem) {
-      cartItem.quantity++
-    },
+    // incrementItemQuantity(state, cartItem) {
+    //   cartItem.quantity++
+    // },
 
-    decrementProductInventory(state, product) {
-      product.inventory--
-    },
+    // decrementProductInventory(state, product) {
+    //   product.inventory--
+    // },
 
-    setCheckoutStatus(state, status) {
-      state.checkoutStatus = status
-    },
+    // setCheckoutStatus(state, status) {
+    //   state.checkoutStatus = status
+    // },
 
-    emptyCart(state) {
-      state.cart = []
-    }
+    // emptyCart(state) {
+    //   state.cart = []
+    // }
 
   }
 })

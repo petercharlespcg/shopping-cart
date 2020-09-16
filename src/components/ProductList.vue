@@ -45,9 +45,13 @@ export default {
     //   //  products: state => state.products
     //    products: 'products'
     //  }),
-    ...mapState([
-    'products'
-    ]),
+    // ...mapState([
+    // 'products'
+    // ]),
+    ...mapState({
+      // products: state => state.products.products
+      products: state => state.products.items
+    }),
 
     //  ...mapGetters({
     //    productIsInStock: 'productIsInStock'

@@ -26,7 +26,8 @@ export default {
     }),
 
     ...mapState({
-      checkoutStatus: 'checkoutStatus'
+      // checkoutStatus: 'checkoutStatus'
+      checkoutStatus: state => state.cart.checkoutStatus
     }),
 
     // products() {
