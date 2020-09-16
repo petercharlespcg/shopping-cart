@@ -8,7 +8,14 @@
       <!-- <li v-for="product in products" v-bind:key="product">{{product.title}} - {{product.price}}</li> -->
       <!-- <li v-for="product in products">{{product.title}} - {{product.price}}</li> -->
       <li v-for="(product, idx) in products" v-bind:key="idx">{{product.title}} - {{product.price | currency}} - {{product.inventory}}
-      <button @click="addProductToCart(product)">Add to cart</button>
+      <!-- <button
+        :disabled="!product.inventory > 0"
+        @click="addProductToCart(product)"> -->
+      <button
+        :disabled="!productIsInStock(product)"
+        @click="addProductToCart(product)">
+        Add to cart
+      </button>
       </li>
     </ul>
   </div>
@@ -27,7 +34,12 @@ export default {
   computed: {
     products() {
       // return store.state.products
-      return this.$store.getters.availableProducts
+      // return this.$store.getters.availableProducts
+      return this.$store.state.products
+    },
+
+    productIsInStock() {
+      return this.$store.getters.productIsInStock
     }
   },
 
