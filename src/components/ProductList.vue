@@ -24,29 +24,61 @@
 <script>
 // import shop from "@/api/shop"
 // import store from '@/store/index'
+import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      productIndex: 1,
     }
   },
 
-  computed: {
-    products() {
-      // return store.state.products
-      // return this.$store.getters.availableProducts
-      return this.$store.state.products
-    },
 
-    productIsInStock() {
-      return this.$store.getters.productIsInStock
-    }
+  computed: {
+    // ...mapState({
+    //    // allProducts: 'products'
+    //    // allProducts: state => state.products,
+    //    // firstProduct: state => state.products[0],
+    //    // specificProduct(state) {
+    //    //     return state.products[this.productIndex]
+    //    //   }
+    //   //  products: state => state.products
+    //    products: 'products'
+    //  }),
+    ...mapState([
+    'products'
+    ]),
+
+    //  ...mapGetters({
+    //    productIsInStock: 'productIsInStock'
+    //  })
+    ...mapGetters([
+      'productIsInStock'
+    ])
+
+    // products() {
+    //   // return store.state.products
+    //   // return this.$store.getters.availableProducts
+    //   return this.$store.state.products
+    // },
+
+    // productIsInStock() {
+    //   return this.$store.getters.productIsInStock
+    // }
   },
 
   methods: {
-    addProductToCart(product) {
-      this.$store.dispatch('addProductToCart', product)
-    }
+    // ...mapActions({
+    //   fetchProducts: 'fetchProducts',
+    //   addProductToCart: 'addProductToCart'
+    // }),
+    ...mapActions([
+      'fetchProducts',
+      'addProductToCart'
+    ]),
+    // addProductToCart(product) {
+    //   this.$store.dispatch('addProductToCart', product)
+    // }
   },
 
   created () {
@@ -56,7 +88,8 @@ export default {
     //   store.commit('setProducts', products);
     // })
     this.loading = true;
-    this.$store.dispatch('fetchProducts')
+    // this.$store.dispatch('fetchProducts')
+    this.fetchProducts()
       .then(() => this.loading = false);
   }
 }
