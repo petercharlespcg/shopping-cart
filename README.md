@@ -1,6 +1,6 @@
 # shopping-cart
 
-> A Vue.js project
+> A Vue.js project for vuex
 
 ## Build Setup
 
